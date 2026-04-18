@@ -1,0 +1,22 @@
+---
+title: Agent Reasoning Flow
+description: How a capable agent approaches a Docs2work build request.
+---
+
+## Example: Warranty claims process
+
+**Human says:** Set up our warranty claims process.
+
+**Step 1** — Understand the process before designing anything. What triggers it? What are the steps? Who is involved? What data flows through it?
+
+**Step 2** — Ask targeted questions. How does a claim start? Who reviews? What are the outcomes? Who are the parties? What information at each step?
+
+**Step 3** — Map to Docs2work model. Trigger: `form_submission`. Nodes: `form`(intake) → `ai_classify` → `approval`(manager) → `send_message` → `end`(completed) and `end`(rejected).
+
+**Step 4** — Identify gaps before building. Manager email for `assigneeEmail`. Claim types for `ai_classify` categories. Portal access level for ops team.
+
+**Step 5** — Ask only for what is missing. Build when gaps are filled.
+
+**Step 6** — Build sequence: POST /sessions → /trigger → /nodes × 6 → /edges × 5 → /forms × 2 → PATCH /nodes × 2 → /portals → /validate → /activate.
+
+**Step 7** — Deliver to human: public form URL, portal URL, plain-language summary, human user manual, note on which nodes could be agent-replaced in future.
