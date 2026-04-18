@@ -1,0 +1,21 @@
+---
+title: Error Handling
+description: How agents should handle Build API errors.
+---
+
+| Code | HTTP | Meaning | Action |
+|---|---|---|---|
+| `VALIDATION_FAILED` | 400 | Graph errors block activation | POST /validate, read errors[], fix each one, retry |
+| `MISSING_FORM_ID` | 400 | Node has no form_id | POST /forms then PATCH /nodes/:id |
+| `MISSING_EDGE` | 400 | conditional/split needs more edges | Add edges for all outcome paths |
+| `ORPHANED_NODE` | 400 | Node has no incoming edges | Add edge or DELETE /nodes/:id |
+| `NO_END_REACHABLE` | 400 | Branch has no end node | Add end node and connecting edge |
+| `MISSING_ASSIGNEE` | 400 | Human node has no assignee | PATCH /nodes/:id with assigneeEmail |
+| `TRIGGER_NOT_SET` | 400 | No trigger configured | POST /trigger before activating |
+| `CONFLICT` | 409 | Node ID exists or session activated | New ID or new session |
+| `EXPIRED` | 410 | Session past 24 hours | Create new session |
+| `INTERNAL_ERROR` | 500 | Activation rolled back | Nothing committed. Retry. |
+
+## General principles
+
+On a 400 error, read the field-level error details and reason about corrections before retrying. Never retry blindly. On a 500, nothing was committed to production — the org is unchanged. It is safe to retry.
