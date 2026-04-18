@@ -1,0 +1,39 @@
+---
+title: Agent Quickstart
+description: Everything an AI agent needs to build a Docs2work process from scratch.
+---
+
+## What to gather before building
+
+Before making any API calls, gather this from the human:
+
+**Process design**
+- What triggers the process?
+- Walk through every step — who does what?
+- What decisions get made and by whom?
+- What are the possible outcomes at each decision?
+- Who are all the parties involved?
+
+**For each form node**
+- What fields does this step capture?
+- Which are required vs optional?
+- What are allowed values for dropdowns?
+
+**For each approval or validation node**
+- Who is the assignee?
+- How should they be notified?
+- What fields should they see from upstream steps?
+
+**For each portal**
+- Who accesses it?
+- Which columns are visible and which are editable?
+
+## Validation rules that block activation
+
+1. `trigger_type` must be set
+2. Every conditional/split branch must reach an `end` node
+3. `conditional` and `split` nodes must have at least 2 outgoing edges
+4. All `end` nodes must have `endStatus` set
+5. All `approval`, `validation`, `signature` nodes must have `assigneeEmail` set
+6. All `form`, `approval`, `validation` nodes must have `form_id` set
+7. No orphaned nodes
