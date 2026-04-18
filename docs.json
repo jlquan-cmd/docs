@@ -1,5 +1,6 @@
 {
   "name": "Docs2work",
+  "theme": "mint",
   "logo": {
     "light": "/logo/light.svg",
     "dark": "/logo/dark.svg"
