@@ -1,0 +1,32 @@
+---
+title: Workflows
+description: Non-linear process graphs connecting every step of a business process.
+---
+
+A workflow is a directed graph of nodes and edges. It defines what happens, in what order, with what data, and who or what is responsible at each step.
+
+## Node types
+
+| type | Purpose |
+|---|---|
+| `form` | Intake or review form step |
+| `approval` | Human approve/reject |
+| `validation` | Human validate/reject |
+| `signature` | Human signs |
+| `conditional` | Branch on context value |
+| `split` | Parallel execution |
+| `pause` | Wait step |
+| `send_message` | Email and/or WhatsApp |
+| `create_sheet_row` | Create sheet row |
+| `update_sheet_row` | Update sheet row |
+| `ai_classify` | Classify text |
+| `ai_extract` | Extract structured fields |
+| `ai_summarize` | Summarize text |
+| `ai_intent` | Detect intent |
+| `ai_transform` | Free-form AI output |
+| `parse_document` | Parse PDF or image |
+| `end` | Terminal node |
+
+## The audit trail
+
+Every node execution is logged in `workflow_run_events` with the actor type (human or agent), the actor identifier, the node ID, and the full input and output context. This is what lets you answer "what happened and why" weeks after a process ran.
