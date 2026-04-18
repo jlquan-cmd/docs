@@ -1,0 +1,18 @@
+---
+title: Audit Trail
+description: Every action logged — human or agent — in a unified process ledger.
+---
+
+Every action in Docs2work is logged with full context regardless of whether the actor is a human or an AI agent. The `actor_type` field tags each action as `human` or `agent`. The agent key identifier is stored alongside every agent action.
+
+This means when a client asks why their warranty was refused three weeks ago, the answer is always available — who acted, what they saw, what they decided, and when — whether a human or an agent made the decision.
+
+## What is logged
+
+| Action | Logged in |
+|---|---|
+| Form submission | `submissions` + `submission_events` |
+| Review node response | `submission_invites` + `workflow_run_events` |
+| Sheet cell update | `sheet_row_events` |
+| Portal button click | `sheet_row_events` |
+| Workflow activation | `agent_audit_log` |
