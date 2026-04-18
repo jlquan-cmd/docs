@@ -1,97 +1,18 @@
 ---
-title: "Introduction"
-description: "Welcome to the new home for your documentation"
+title: Introduction
+description: Docs2work is the process infrastructure layer for human and AI organizations.
 ---
 
-## Setting up
+Docs2work lets you build repeatable business processes — warranty claims, invoice approvals, onboarding, purchase requests — that work with humans today and can be progressively automated by AI agents over time.
 
-Get your documentation site up and running in minutes.
+## The three modules
 
-<Card
-  title="Start here"
-  icon="rocket"
-  href="/quickstart"
-  horizontal
->
-  Follow our three step quickstart guide.
-</Card>
+**Forms** capture structured business data with validation and conditional logic. Humans submit via browser. AI agents submit headlessly via API. Both paths run identical validation.
 
-## Make it yours
+**Sheets** are the persistent memory layer. Every form submission creates a sheet row. Agents read sheet data as context before acting. Data only enters through validated ingestion points — never by direct write.
 
-Design a docs site that looks great and empowers your users.
+**Workflows** are non-linear process graphs defining what happens, in what order, and who is responsible at each step. Every action — human or agent — is logged in a unified audit trail.
 
-<Columns cols={2}>
-  <Card
-    title="Edit locally"
-    icon="pen-to-square"
-    href="/development"
-  >
-    Edit your docs locally and preview them in real time.
-  </Card>
-  <Card
-    title="Customize your site"
-    icon="palette"
-    href="/essentials/settings"
-  >
-    Customize the design and colors of your site to match your brand.
-  </Card>
-    <Card
-    title="Set up navigation"
-    icon="map"
-    href="/essentials/navigation"
-  >
-    Organize your docs to help users find what they need and succeed with your product.
-  </Card>
-  <Card
-    title="API documentation"
-    icon="terminal"
-    href="/api-reference/introduction"
-  >
-    Auto-generate API documentation from OpenAPI specifications.
-  </Card>
-</Columns>
+## The key principle
 
-## Create beautiful pages
-
-Everything you need to create world-class documentation.
-
-<Columns cols={2}>
-  <Card
-    title="Write with MDX"
-    icon="pen-fancy"
-    href="/essentials/markdown"
-  >
-    Use MDX to style your docs pages.
-  </Card>
-  <Card
-    title="Code samples"
-    icon="code"
-    href="/essentials/code"
-  >
-    Add sample code to demonstrate how to use your product.
-  </Card>
-  <Card
-    title="Images"
-    icon="image"
-    href="/essentials/images"
-  >
-    Display images and other media.
-  </Card>
-  <Card
-    title="Reusable snippets"
-    icon="recycle"
-    href="/essentials/reusable-snippets"
-  >
-    Write once and reuse across your docs.
-  </Card>
-</Columns>
-
-## Need inspiration?
-
-<Card
-  title="See complete examples"
-  icon="stars"
-  href="https://mintlify.com/customers"
->
-  Browse our showcase of exceptional documentation sites.
-</Card>
+Data only enters the system through validated ingestion points. No direct database writes. Whether the actor is a human or an AI agent, the process and the audit trail are identical.
