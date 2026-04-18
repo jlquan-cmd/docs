@@ -1,0 +1,21 @@
+---
+title: Authentication
+description: Agent API keys and scopes.
+---
+
+All Build API requests require an agent API key created in Settings → Agent Keys.
+
+```bash
+Authorization: Bearer d2w_agent_<your_key>
+X-Docs2work-Org: <your_org_id>
+```
+
+## Key scopes
+
+| Scope | What it allows |
+|---|---|
+| `org:build` | Create workflows, forms, and portals. Required for Build API. |
+| `org:read` | Read structures and configs. No writes. |
+| `form:<id>` | Submit a specific form headlessly. |
+| `workflow:<id>` | Respond to review nodes in a specific workflow. |
+| `portal:<token>` | Read rows and trigger actions in a specific portal. |
