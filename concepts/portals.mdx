@@ -1,0 +1,12 @@
+---
+title: Portals
+description: Scoped, tokenized views of sheet data for external parties and AI agents.
+---
+
+A portal is a permission-controlled view of a sheet. The portal creator defines which columns are visible, which are editable, and which rows are in scope. External parties — human clients, suppliers, or AI agents — access the portal via a token.
+
+Hidden columns are the permission boundary. They are never sent to portal viewers regardless of access level.
+
+## Agent portal tokens
+
+When `for_agent: true` is set on a portal draft, activation generates an HMAC-signed agent token alongside the human portal URL. Agents authenticate with this token via the `Authorization: Bearer d2w_agent_*` header to the shared-table-view endpoint.
