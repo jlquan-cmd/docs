@@ -1,0 +1,20 @@
+---
+title: Agent Overview
+description: How AI agents discover and use Docs2work.
+---
+
+Docs2work is designed to be discovered, understood, and used by AI agents autonomously.
+
+## Discovery
+
+Agents find Docs2work by fetching the OpenAPI spec:
+
+```
+GET https://app.docs2work.com/openapi.json
+```
+
+The spec describes every Build API endpoint, all request and response schemas, authentication, and error codes in standard OpenAPI 3.0 format. Any MCP-compatible agent framework can parse and use this spec directly.
+
+## The agent principle
+
+Agents use the same ingestion points as humans. No backdoors. No direct database writes. The form schema is the contract — agents sign it the same as humans. Every agent action is indistinguishable from a human action in process terms, tagged differently only in the audit trail.
