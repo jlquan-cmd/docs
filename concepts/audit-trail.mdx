@@ -9,10 +9,44 @@ This means when a client asks why their warranty was refused three weeks ago, th
 
 ## What is logged
 
-| Action | Logged in |
+| Action | Logged in | Actor types |
+|---|---|---|
+| Form submission (human) | `submissions` + `submission_events` | human |
+| Form submission (agent) | `submissions` + `submission_events` (payload includes agent_key_id) | agent |
+| Review node response (human) | `submission_invites.result_json` + `workflow_run_events` | human |
+| Review node response (agent) | `submission_invites.result_json` + `workflow_run_events` (includes agent_key_id, outcome, reason, field_updates_count) | agent |
+| Sheet cell update | `sheet_row_events` | human, agent |
+| Portal button click | `sheet_row_events` | human, agent |
+| Find Record execution | `workflow_run_steps` + `workflow_run_events` (includes match_count, found_row_id — never row data) | system |
+| Workflow build session activated | `agent_audit_log` | agent |
+| Workflow build session failed | `agent_audit_log` | agent |
+| Agent auth failure | Structured log event (includes reason_code, key_prefix — never full secret) | agent |
+
+## Agent audit fields
+
+Every agent action includes these additional fields alongside the standard audit data:
+
+| Field | What it contains |
 |---|---|
-| Form submission | `submissions` + `submission_events` |
-| Review node response | `submission_invites` + `workflow_run_events` |
-| Sheet cell update | `sheet_row_events` |
-| Portal button click | `sheet_row_events` |
-| Workflow activation | `agent_audit_log` |
+| `actor_type` | Always `agent` for agent actions |
+| `agent_key_id` | UUID of the agent API key that performed the action |
+| `reason` | Business justification provided by the agent (max 2000 chars) — present on review responses |
+| `agent_context` | Optional traceability note provided by the agent |
+
+## Review response audit detail
+
+When an agent responds to an approval, validation, or signature node, the following is written to `workflow_run_events`:
+
+- `actor_type`: agent
+- `agent_key_id`: the responding agent key
+- `node_id`: the node that was responded to
+- `node_type`: approval, validation, or signature
+- `outcome`: approved, rejected, validated, or signed
+- `reason`: the business justification (truncated to 2000 chars)
+- `field_updates_count`: number of fields updated during review — the field values themselves are in the workflow context, not the audit event
+
+Field update content is never written directly to the audit log — only the count. Full field values are available in `workflow_context_json` on the workflow run.
+
+## The warranty question
+
+When a client asks "why was my warranty claim refused three weeks ago" the answer is available from a single query across `submissions`, `workflow_run_events`, and `submission_invites`. The process is identical whether the decision was made by a human manager or an AI agent — the audit trail records the outcome, the reason, the actor, and the timestamp in the same structure either way.
